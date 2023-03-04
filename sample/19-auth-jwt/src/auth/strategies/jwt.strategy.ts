@@ -11,9 +11,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       ignoreExpiration: false,
       secretOrKey: jwtConstants.secret,
     });
+    const token = ExtractJwt.fromAuthHeaderAsBearerToken();
+    console.log('token', token);
   }
 
   async validate(payload: any) {
+    console.log('payload', payload);
     return { userId: payload.sub, username: payload.username };
   }
 }
